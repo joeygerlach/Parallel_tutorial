@@ -1,11 +1,6 @@
----
-title: "Using the NeCTAR Cloud"
-author: "Joey Gerlach"
-date: "5 January 2016"
-output: 
-  ioslides_presentation: 
-    keep_md: yes
----
+# Using the NeCTAR Cloud
+Joey Gerlach  
+5 January 2016  
 
 ## FileZilla 
 

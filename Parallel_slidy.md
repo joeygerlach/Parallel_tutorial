@@ -1,11 +1,6 @@
----
-title: "Using the NeCTAR Cloud"
-author: "Joey Gerlach"
-date: "5 January 2016"
-output: 
-  ioslides_presentation: 
-    keep_md: yes
----
+# NeCTAR Cloud Virtual Machines
+Joey Gerlach  
+5 January 2016  
 
 ## FileZilla 
 
@@ -80,4 +75,5 @@ The right side will contain the folders and files on the VM.
 ---
 
 ![](images/FZ_save_files.png)
+
 
