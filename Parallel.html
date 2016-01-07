@@ -110,6 +110,7 @@ img {
 <ul>
 <li>Try some commands to look around the VM</li>
 <li><code>ps</code> ; <code>df -hT</code> ; <code>top</code></li>
+<li>Connect to the VM with FileZilla to visualise the file structure and contents.<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla" class="uri">https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla</a></li>
 <li>Install “htop”</li>
 <li><code>apt-cache search htop</code></li>
 <li><code>sudo apt-get install htop</code></li>
@@ -131,46 +132,20 @@ img {
 <li>Always perform analyses in a larger storage disc, not the primary (root) disc. In this tutorial we will use the secondary (ephemeral) disc, but it is recommended that users request volume storage to use for running analyses instead because the data will be more secure.</li>
 <li>First, we make the mounted storage disc writable:<br /> <code>sudo chown ubuntu /mnt</code><br /></li>
 <li>Copy the tutorial files to the mounted disc:<br /> <code>cp -r ~/structure_parallel-master/ /mnt/structure_run1/</code><br /> <code>cd /mnt/structure_run1</code><br /></li>
-<li>Look at the files (you may wish to use FileZilla for this)<br /></li>
+<li><p>Look at the files (you may wish to use FileZilla for this)</p></li>
+<li><p>Look at the support page on running jobs on a VM:<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000089713-tips-for-running-jobs-on-your-vm" class="uri">https://support.nectar.org.au/support/solutions/articles/6000089713-tips-for-running-jobs-on-your-vm</a></p></li>
+<li><p>Install the task manager “GNU Parallel”<br /> <code>sudo apt-get install parallel</code></p></li>
 <li><p>Run Structure using “GNU parallel” by calling the shell script:<br /> <code>bash Parallel_Structure.sh</code></p></li>
 <li><p><code>htop</code></p></li>
 </ul>
 <p><a href="http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz" class="uri">http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz</a> <a href="https://github.com/joeygerlach/structure_parallel/archive/master.zip" class="uri">https://github.com/joeygerlach/structure_parallel/archive/master.zip</a></p>
 <p>Launching and Connecting tutorials<br />BASH tutorial<br />FileZilla tutorial<br />Parallel and NoHup guide Quick commands table</p>
 </div>
-<div id="quick-reference-for-shell-commands-in-the-cloud-basics-articles" class="section level2">
-<h2>Quick reference for shell commands in the Cloud Basics articles</h2>
-<p>Although you can set up your VM with a remote desktop (see the NeCTAR Training modules), the most efficient way to use your linux VM is by command-line.</p>
-<p>There are some excellent tutorials for basic shell commands (also called unix or bash commands). <a href="https://www.codecademy.com/learn/learn-the-command-line">Codecademy</a> offers an excellent, free, interactive tutorial that you can complete within your browser on any operating system.</p>
-<p>You may also like to print off a cheatsheet of shell commands, such as this <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">simple one page sheet</a>, or one of these more thorough references: <a href="http://cli.learncodethehardway.org/bash_cheat_sheet.pdf">Learncodethehardway</a> or <a href="https://gist.github.com/LeCoupa/122b12050f5fb267e75f">GitHubGist</a></p>
-<p>Here are some particular commands used in the Cloud Basics articles, for quick reference.</p>
-<div id="commands-to-use-on-your-maclinux-to-set-up-your-nectar-connection" class="section level3">
-<h3>Commands to use on your Mac/Linux to set up your NeCTAR connection</h3>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Command</th>
-<th align="left">Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><code>ssh-keygen -t rsa -f Nectar_Key</code></td>
-<td align="left">generate a keypair locally</td>
-</tr>
-<tr class="even">
-<td align="left"><code>chmod 600 ~/.ssh/Nectar_Key</code></td>
-<td align="left">secure your private key</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>ssh -i Nectar_Key ubuntu@XX.XX.XX.XX</code></td>
-<td align="left">SSH access to the VM</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="commands-to-enter-on-your-vm-console-during-set-up" class="section level3">
-<h3>Commands to enter on your VM console during set-up</h3>
+<div id="quick-reference-for-shell-commands" class="section level2">
+<h2>Quick reference for shell commands</h2>
+<p>Connecting from the terminal app on your Mac:<br /><code>ssh -i Nectar_Key ubuntu@XX.XX.XX.XX</code></p>
+<div id="commands-for-your-linux-vm" class="section level3">
+<h3>Commands for your Linux VM</h3>
 <table>
 <thead>
 <tr class="header">
@@ -186,22 +161,6 @@ img {
 <tr class="even">
 <td align="left"><code>sudo chown ubuntu /mnt</code></td>
 <td align="left">make the ephemeral disk writable</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>sudo mkfs.ext4 /dev/vdc</code></td>
-<td align="left">format a new, empty volume</td>
-</tr>
-<tr class="even">
-<td align="left"><code>sudo mkdir /volume_name</code></td>
-<td align="left">create an empty directory for the volume</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>sudo mount /dev/vdc /volume_name -t auto</code></td>
-<td align="left">mount the volume</td>
-</tr>
-<tr class="even">
-<td align="left"><code>sudo chown ubuntu /volume_name</code></td>
-<td align="left">make the mounted volume writable</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>lsblk -l</code></td>
