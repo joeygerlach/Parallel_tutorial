@@ -1,14 +1,20 @@
-
-This tutorial will give a very quick overview of launchin and accessing a virtual machine (VM) in NeCTAR. These processes are covered in depth on the NeCTAR website Training Modules <http://training.nectar.org.au/> , and Support Pages <https://support.nectar.org.au/support/home>
+# Using a NeCTAR Cloud Virtual Machine
 
 This guide will show you how to **use** your NeCTAR VM to perform jobs, including tips on making efficient use of cloud capabilities.
 
+This tutorial will demonstrate some basics of setting up and running a VM. We will install packages, download files, and run a demonstration analysis with some optimisation tips.
+
+The aim of the workshop is to make using a NeCTAR cloud a less intimidating experience by walking through some of the common steps in running analyses on a VM.
+
+The workshop will teach generic skills, and the tools learnt will be applicable to many types of analysis in any discipline. The tutorial will involve a test analysis using an example program called "Structure" with the task manager application "GNU Parallel", such that the analysis is optimised for a VM with a large number of processing cores.
 
 ## Launch a Virtual Machine (Instance)
 
+This tutorial will provide an overview of launching and accessing a virtual machine (VM) in NeCTAR. These processes are covered in depth on the NeCTAR website Training Modules <http://training.nectar.org.au/> , and Support Pages <https://support.nectar.org.au/support/home>
+
 1. Log on to the NeCTAR dashboard <https://dashboard.rc.nectar.org.au/project>
 1. Select the correct project allocation in the top bar (if it starts with "pt- ", it is your default trial allocation)
-1. Select "**Access & Security**" under the "Compute subheading in the left side main menu.
+1. Select "**Access & Security**" under the "Compute" subheading in the left side main menu.
     1. Click "Create Security Group"
     1. Name the security group 'SSH', with the description "port 22 for SSH". Click "Create Security Group"
     1. Click "**Manage Rules**" in the "Actions" drop-down menu. Click "**Add Rule**".
@@ -38,19 +44,20 @@ See the support page:
 ## Downloading and Installing
 
 - Try some commands to look around the VM
-  - `ps` ; `df -hT` ; `top`
+    - `ps` ; `df -hT` ; `top`
+- Install "**htop**"
+    - `apt-cache search htop`
+    - `sudo apt-get install htop`
+    - `htop`
 - Connect to the VM with FileZilla to visualise the file structure and contents.  
   <https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla>
-- Install "htop"
-  - `apt-cache search htop`
-  - `sudo apt-get install htop`
-  - `htop`
+
 
 ---
 
 - Run these commands periodically to update the package manager and the installed packages.
   - `sudo apt-get update`
-  - `sudo apt-get upgrade`  
+  - `sudo apt-get upgrade`  - (this one can be time-consuming, so don't run it during the workshop)
 
 ---
 
@@ -59,12 +66,12 @@ See the support page:
   `wget http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz`
 
   - Decompress the archived folder with:  
-  `tar -xvzf structure_linux_console.tar.gz`  
+  `tar -zxvf structure_linux_console.tar.gz`  
 
   - Download today's tutorial file:  
   `wget https://github.com/joeygerlach/structure_parallel/archive/master.zip`  
   - Use the *unzip* command to decompress the tutorial file  
-  `sudo apt-get install unzip`   
+  `sudo apt-get install zip unzip`   
   `unzip master.zip`  
   `ls`  `ls -lh structure_parallel-master`
   
@@ -85,26 +92,50 @@ See the support page:
   - Run Structure using "GNU parallel" by calling the shell script:  
   `bash Parallel_Structure.sh`  
   
-  - `htop`  
+  - Look at the processes running:  
+  `htop`  
 
-<http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz>
-https://github.com/joeygerlach/structure_parallel/archive/master.zip
+  - Because we used the **nohup** command, we can close the window and the process will continue running. Try closing your terminal, then re-connecting to the VM. Enter `htop`.
+
+## Transferring files
+
+We have created a folder of results files. We will transfer them to your computer, or to a remote data storage server.
+
+First, we can zip the results folder into a single file.  
+    `zip structure_1.zip results/ ` OR  
+    `tar -zcvf structure_1.tar.gz results/ `  
+
+### Filezilla
+
+Drag and drop files between your VM and your local computer.
+
+### Secure Copy
+
+I have data stored in the /data folder in the eRSA remote storage server "sftp.ersa.edu.au". I am going to use **scp** to copy the results files to this storage.
+
+`scp <Path_To_Source_File> <Path_to_Destination>`
+
+`scp structure_1.zip jgerlach@sftp.ersa.edu.au:/home/users/jgerlach `
+
+`scp jgerlach@sftp.ersa.edu.au:/home/users/jgerlach/test.txt ./`
+
+### Secure File Transfer Protocol
+
+Use the **sftp** command to access a remote computer, then use "get" or "put" to download or upload files.
+
+`sftp jgerlach@sftp.ersa.edu.au `  
+`get test.txt ./`  
+`put test.tar.gz ./`  
+`quit`  
 
 
 
-Launching and Connecting tutorials  
-BASH tutorial  
-FileZilla tutorial  
-Parallel and NoHup guide
-Quick commands table
 
 
 ## Quick reference for shell commands
 
 Connecting from the terminal app on your Mac:  
 `ssh -i Nectar_Key ubuntu@XX.XX.XX.XX`
-
-
 
 ### Commands for your Linux VM
 
@@ -115,7 +146,7 @@ Connecting from the terminal app on your Mac:
 | `lsblk -l` | list the block storage |
 | `df -hT` | display the disk usage |
 | `du -h <path/to/directory>` | display directory and file sizes |
-| `top` | activity monitor for your VM |
+| `top` or `htop` | activity monitor for your VM |
 | `ps` | list the running processes on your VM (with PID#) |
 | `kill <PID#>` | terminate the process by PID number  |
 | control + 'c' | stops a process running in your terminal |
@@ -130,8 +161,4 @@ Connecting from the terminal app on your Mac:
 | `bg %n ` | move a (paused) job to the background (n=job number) |
 
 
-[codecademy]: https://www.codecademy.com/learn/learn-the-command-line
-[long]: http://cli.learncodethehardway.org/bash_cheat_sheet.pdf
-[git]: https://gist.github.com/LeCoupa/122b12050f5fb267e75f
-[simple]: https://ubuntudanmark.dk/filer/fwunixref.pdf
 

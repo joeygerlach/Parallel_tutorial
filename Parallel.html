@@ -61,14 +61,19 @@ img {
 
 
 
-<p>This tutorial will give a very quick overview of launchin and accessing a virtual machine (VM) in NeCTAR. These processes are covered in depth on the NeCTAR website Training Modules <a href="http://training.nectar.org.au/" class="uri">http://training.nectar.org.au/</a> , and Support Pages <a href="https://support.nectar.org.au/support/home" class="uri">https://support.nectar.org.au/support/home</a></p>
+<div id="using-a-nectar-cloud-virtual-machine" class="section level1">
+<h1>Using a NeCTAR Cloud Virtual Machine</h1>
 <p>This guide will show you how to <strong>use</strong> your NeCTAR VM to perform jobs, including tips on making efficient use of cloud capabilities.</p>
+<p>This tutorial will demonstrate some basics of setting up and running a VM. We will install packages, download files, and run a demonstration analysis with some optimisation tips.</p>
+<p>The aim of the workshop is to make using a NeCTAR cloud a less intimidating experience by walking through some of the common steps in running analyses on a VM.</p>
+<p>The workshop will teach generic skills, and the tools learnt will be applicable to many types of analysis in any discipline. The tutorial will involve a test analysis using an example program called “Structure” with the task manager application “GNU Parallel”, such that the analysis is optimised for a VM with a large number of processing cores.</p>
 <div id="launch-a-virtual-machine-instance" class="section level2">
 <h2>Launch a Virtual Machine (Instance)</h2>
+<p>This tutorial will provide an overview of launching and accessing a virtual machine (VM) in NeCTAR. These processes are covered in depth on the NeCTAR website Training Modules <a href="http://training.nectar.org.au/" class="uri">http://training.nectar.org.au/</a> , and Support Pages <a href="https://support.nectar.org.au/support/home" class="uri">https://support.nectar.org.au/support/home</a></p>
 <ol style="list-style-type: decimal">
 <li>Log on to the NeCTAR dashboard <a href="https://dashboard.rc.nectar.org.au/project" class="uri">https://dashboard.rc.nectar.org.au/project</a></li>
 <li>Select the correct project allocation in the top bar (if it starts with “pt-”, it is your default trial allocation)</li>
-<li>Select “<strong>Access &amp; Security</strong>” under the “Compute subheading in the left side main menu.
+<li>Select “<strong>Access &amp; Security</strong>” under the “Compute” subheading in the left side main menu.
 <ol style="list-style-type: decimal">
 <li>Click “Create Security Group”</li>
 <li>Name the security group ‘SSH’, with the description “port 22 for SSH”. Click “Create Security Group”</li>
@@ -108,19 +113,23 @@ img {
 <div id="downloading-and-installing" class="section level2">
 <h2>Downloading and Installing</h2>
 <ul>
-<li>Try some commands to look around the VM</li>
+<li>Try some commands to look around the VM
+<ul>
 <li><code>ps</code> ; <code>df -hT</code> ; <code>top</code></li>
+</ul></li>
 <li>Connect to the VM with FileZilla to visualise the file structure and contents.<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla" class="uri">https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla</a></li>
-<li>Install “htop”</li>
+<li>Install “htop”
+<ul>
 <li><code>apt-cache search htop</code></li>
 <li><code>sudo apt-get install htop</code></li>
 <li><code>htop</code></li>
+</ul></li>
 </ul>
 <hr />
 <ul>
 <li>Run these commands periodically to update the package manager and the installed packages.</li>
 <li><code>sudo apt-get update</code></li>
-<li><code>sudo apt-get upgrade</code></li>
+<li><code>sudo apt-get upgrade</code> - (this one can be time-consuming, so don’t run it during the workshop)</li>
 </ul>
 <hr />
 <ul>
@@ -136,10 +145,9 @@ img {
 <li><p>Look at the support page on running jobs on a VM:<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000089713-tips-for-running-jobs-on-your-vm" class="uri">https://support.nectar.org.au/support/solutions/articles/6000089713-tips-for-running-jobs-on-your-vm</a></p></li>
 <li><p>Install the task manager “GNU Parallel”<br /> <code>sudo apt-get install parallel</code></p></li>
 <li><p>Run Structure using “GNU parallel” by calling the shell script:<br /> <code>bash Parallel_Structure.sh</code></p></li>
-<li><p><code>htop</code></p></li>
+<li><p>Look at the processes running:<br /> <code>htop</code></p></li>
+<li><p>Because we used the <strong>nohup</strong> command, we can close the window and the process will continue running. Try closing your terminal, then re-connecting to the VM. Enter <code>htop</code>.</p></li>
 </ul>
-<p><a href="http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz" class="uri">http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz</a> <a href="https://github.com/joeygerlach/structure_parallel/archive/master.zip" class="uri">https://github.com/joeygerlach/structure_parallel/archive/master.zip</a></p>
-<p>Launching and Connecting tutorials<br />BASH tutorial<br />FileZilla tutorial<br />Parallel and NoHup guide Quick commands table</p>
 </div>
 <div id="quick-reference-for-shell-commands" class="section level2">
 <h2>Quick reference for shell commands</h2>
@@ -175,7 +183,7 @@ img {
 <td align="left">display directory and file sizes</td>
 </tr>
 <tr class="even">
-<td align="left"><code>top</code></td>
+<td align="left"><code>top</code> or <code>htop</code></td>
 <td align="left">activity monitor for your VM</td>
 </tr>
 <tr class="odd">
@@ -228,6 +236,7 @@ img {
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 
