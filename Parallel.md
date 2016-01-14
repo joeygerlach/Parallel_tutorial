@@ -18,7 +18,7 @@ This tutorial will provide an overview of launching and accessing a virtual mach
     1. Click "Create Security Group"
     1. Name the security group 'SSH', with the description "port 22 for SSH". Click "Create Security Group"
     1. Click "**Manage Rules**" in the "Actions" drop-down menu. Click "**Add Rule**".
-    1. Type "22" under "**Port**". Under "**CIDR**", you choose a range of IP adresses that can access your VM through port 22. If you keep it as "0.0.0.0/0", you can access your VM from any computer, but anyone else night find a way to access it also. Here are the IP ranges for SA University networks. Use one of these, and the VM can only be accessed form a University computer (including an external computer using a VPN to access the University network).
+    1. Type "22" under "**Port**". Under "**CIDR**", you choose a range of IP adresses that can access your VM through port 22. If you keep it as "0.0.0.0/0", you can access your VM from any computer, but others might find a way to access it also. Here are the IP ranges for SA University networks. Use one of these, and the VM can only be accessed form a University computer (including an external computer using a VPN to access the University network).
         - 129.127.0.0/16 - University of Adelaide
         - 129.96.0.0/16 - Flinders
         - 130.220.0.0/16 - UniSA 

@@ -78,7 +78,7 @@ img {
 <li>Click “Create Security Group”</li>
 <li>Name the security group ‘SSH’, with the description “port 22 for SSH”. Click “Create Security Group”</li>
 <li>Click “<strong>Manage Rules</strong>” in the “Actions” drop-down menu. Click “<strong>Add Rule</strong>”.</li>
-<li>Type “22” under “<strong>Port</strong>”. Under “<strong>CIDR</strong>”, you choose a range of IP adresses that can access your VM through port 22. If you keep it as “0.0.0.0/0”, you can access your VM from any computer, but anyone else night find a way to access it also. Here are the IP ranges for SA University networks. Use one of these, and the VM can only be accessed form a University computer (including an external computer using a VPN to access the University network).
+<li>Type “22” under “<strong>Port</strong>”. Under “<strong>CIDR</strong>”, you choose a range of IP adresses that can access your VM through port 22. If you keep it as “0.0.0.0/0”, you can access your VM from any computer, but others might find a way to access it also. Here are the IP ranges for SA University networks. Use one of these, and the VM can only be accessed form a University computer (including an external computer using a VPN to access the University network).
 <ul>
 <li>129.127.0.0/16 - University of Adelaide</li>
 <li>129.96.0.0/16 - Flinders</li>
@@ -117,13 +117,13 @@ img {
 <ul>
 <li><code>ps</code> ; <code>df -hT</code> ; <code>top</code></li>
 </ul></li>
-<li>Connect to the VM with FileZilla to visualise the file structure and contents.<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla" class="uri">https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla</a></li>
-<li>Install “htop”
+<li>Install “<strong>htop</strong>”
 <ul>
 <li><code>apt-cache search htop</code></li>
 <li><code>sudo apt-get install htop</code></li>
 <li><code>htop</code></li>
 </ul></li>
+<li>Connect to the VM with FileZilla to visualise the file structure and contents.<br /> <a href="https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla" class="uri">https://support.nectar.org.au/support/solutions/articles/6000085114-transferring-data-to-your-vm#filezilla</a></li>
 </ul>
 <hr />
 <ul>
@@ -135,9 +135,9 @@ img {
 <ul>
 <li>To download “Structure”, copy the URL for the latest release <a href="http://pritchardlab.stanford.edu/structure_software/release_versions/" class="uri">http://pritchardlab.stanford.edu/structure_software/release_versions/</a></li>
 <li><p>Then use the “wget” command to download the tar.gz file. e.g.<br /> <code>wget http://pritchardlab.stanford.edu/structure_software/release_versions/v2.3.4/release/structure_linux_console.tar.gz</code></p></li>
-<li><p>Decompress the archived folder with:<br /> <code>tar -xvzf structure_linux_console.tar.gz</code></p></li>
+<li><p>Decompress the archived folder with:<br /> <code>tar -zxvf structure_linux_console.tar.gz</code></p></li>
 <li>Download today’s tutorial file:<br /> <code>wget https://github.com/joeygerlach/structure_parallel/archive/master.zip</code><br /></li>
-<li><p>Use the <em>unzip</em> command to decompress the tutorial file<br /> <code>sudo apt-get install unzip</code><br /> <code>unzip master.zip</code><br /> <code>ls</code> <code>ls -lh structure_parallel-master</code></p></li>
+<li><p>Use the <em>unzip</em> command to decompress the tutorial file<br /> <code>sudo apt-get install zip unzip</code><br /> <code>unzip master.zip</code><br /> <code>ls</code> <code>ls -lh structure_parallel-master</code></p></li>
 <li>Always perform analyses in a larger storage disc, not the primary (root) disc. In this tutorial we will use the secondary (ephemeral) disc, but it is recommended that users request volume storage to use for running analyses instead because the data will be more secure.</li>
 <li>First, we make the mounted storage disc writable:<br /> <code>sudo chown ubuntu /mnt</code><br /></li>
 <li>Copy the tutorial files to the mounted disc:<br /> <code>cp -r ~/structure_parallel-master/ /mnt/structure_run1/</code><br /> <code>cd /mnt/structure_run1</code><br /></li>
@@ -148,6 +148,27 @@ img {
 <li><p>Look at the processes running:<br /> <code>htop</code></p></li>
 <li><p>Because we used the <strong>nohup</strong> command, we can close the window and the process will continue running. Try closing your terminal, then re-connecting to the VM. Enter <code>htop</code>.</p></li>
 </ul>
+</div>
+<div id="transferring-files" class="section level2">
+<h2>Transferring files</h2>
+<p>We have created a folder of results files. We will transfer them to your computer, or to a remote data storage server.</p>
+<p>First, we can zip the results folder into a single file.<br /> <code>zip structure_1.zip results/</code> OR<br /> <code>tar -zcvf structure_1.tar.gz results/</code></p>
+<div id="filezilla" class="section level3">
+<h3>Filezilla</h3>
+<p>Drag and drop files between your VM and your local computer.</p>
+</div>
+<div id="secure-copy" class="section level3">
+<h3>Secure Copy</h3>
+<p>I have data stored in the /data folder in the eRSA remote storage server “sftp.ersa.edu.au”. I am going to use <strong>scp</strong> to copy the results files to this storage.</p>
+<p><code>scp &lt;Path_To_Source_File&gt; &lt;Path_to_Destination&gt;</code></p>
+<p><code>scp structure_1.zip jgerlach@sftp.ersa.edu.au:/home/users/jgerlach</code></p>
+<p><code>scp jgerlach@sftp.ersa.edu.au:/home/users/jgerlach/test.txt ./</code></p>
+</div>
+<div id="secure-file-transfer-protocol" class="section level3">
+<h3>Secure File Transfer Protocol</h3>
+<p>Use the <strong>sftp</strong> command to access a remote computer, then use “get” or “put” to download or upload files.</p>
+<p><code>sftp jgerlach@sftp.ersa.edu.au</code><br /><code>get test.txt ./</code><br /><code>put test.tar.gz ./</code><br /><code>quit</code></p>
+</div>
 </div>
 <div id="quick-reference-for-shell-commands" class="section level2">
 <h2>Quick reference for shell commands</h2>
